@@ -1,0 +1,263 @@
+/* ============================
+   CARD / CARROSSEL
+   ============================ */
+
+.carousel-shell {
+  width: 100%;
+  max-width: 1180px;
+  height: 640px;
+  margin: 4px auto 0;
+  background: #000;
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+}
+
+/* CABEÇALHO DO CARROSSEL
+   (agora limitado à lateral direita) */
+
+.carousel-header {
+  position: absolute;
+  top: 16px;
+  left: 55%;           /* começa onde termina a foto */
+  right: 22px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.carousel-brand {
+  background: rgba(0,0,0,0.55);
+  padding: 10px 18px;
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+}
+
+.carousel-brand h3 {
+  color: #fff;
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.carousel-brand span {
+  color: #f1ddca;
+  font-size: 0.68rem;
+}
+
+.carousel-step {
+  background: rgba(0,0,0,0.55);
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: .8rem;
+  pointer-events: auto;
+}
+
+/* SLIDES */
+
+.carousel-container {
+  display: flex;
+  height: 100%;
+  transition: transform .6s ease-in-out;
+}
+
+.carousel-slide {
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  position: relative;
+}
+
+.carousel-media {
+  width: 55%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;      /* mostra a imagem inteira, sem cortar */
+  background: #000;         /* borda preta de fundo se sobrar espaço */
+  transform: none;          /* remove zoom */
+  transition: opacity .4s ease-out;
+}
+
+.carousel-slide.active .carousel-media img {
+  transform: none;          /* garante nenhum zoom */
+}
+
+
+/* LATERAL DE TEXTO */
+
+.carousel-text {
+  width: 45%;
+  padding: 90px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fdf7f0;
+  background: linear-gradient(120deg, rgba(0,0,0,0.9), rgba(0,0,0,0.55));
+}
+
+.carousel-pill {
+  font-size: .78rem;
+  background: rgba(255,255,255,0.12);
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.carousel-title {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.carousel-title span {
+  color: #d8a86a;
+}
+
+.carousel-desc {
+  font-size: 0.96rem;
+  opacity: 0.88;
+  margin-bottom: 18px;
+}
+
+.carousel-info label {
+  font-size: .75rem;
+  color: #d8a86a;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+
+.carousel-info p {
+  opacity: 0.85;
+  font-size: .9rem;
+  margin-top: 6px;
+  margin-bottom: 20px;
+}
+
+.carousel-cta {
+  padding: 11px 18px;
+  background: #c7985f;
+  border: none;
+  border-radius: 999px;
+  cursor: default;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.86rem;
+  align-self: flex-start;
+  box-shadow: 0 18px 32px rgba(0,0,0,0.4);
+}
+
+/* SETAS – AGORA TAMBÉM FORA DA FOTO (lado direito) */
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: #fff;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+}
+
+/* prev encostado no início da área preta (texto) */
+.carousel-arrow.prev {
+  left: calc(55% + 12px);
+}
+
+/* next continua no cantinho direito */
+.carousel-arrow.next {
+  right: 18px;
+}
+
+/* DOTS – BASEADOS NO LADO DIREITO */
+
+.carousel-dots {
+  position: absolute;
+  bottom: 22px;
+  right: 32px;
+  transform: none;
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+  background: rgba(0,0,0,0.45);
+  padding: 6px 12px;
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+}
+
+.carousel-dots div {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.45);
+  cursor: pointer;
+}
+
+.carousel-dots .active {
+  background: #d8a86a;
+  width: 22px;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 900px) {
+  .carousel-shell {
+    height: 520px;
+  }
+
+  .carousel-slide {
+    flex-direction: column;
+  }
+
+  .carousel-media {
+    width: 100%;
+    height: 55%;
+  }
+
+  .carousel-text {
+    width: 100%;
+    height: 45%;
+    padding: 24px 20px;
+  }
+
+  /* header volta a ocupar a largura toda, mas ainda acima da parte preta */
+  .carousel-header {
+    left: 16px;
+    right: 16px;
+  }
+
+  .carousel-arrow {
+    display: none;
+  }
+
+  .carousel-dots {
+    bottom: 14px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}

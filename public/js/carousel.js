@@ -1,0 +1,72 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+  const container = document.getElementById("carouselSlides");
+  const dotsContainer = document.getElementById("carouselDots");
+  const currentEl = document.getElementById("carouselCurrent");
+  const totalEl = document.getElementById("carouselTotal");
+  const prevBtn = document.getElementById("carouselPrev");
+  const nextBtn = document.getElementById("carouselNext");
+
+  if (!slides.length) return;
+
+  let current = 0;
+  const total = slides.length;
+  totalEl.textContent = String(total).padStart(2, "0");
+
+  // cria dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.dataset.index = i;
+    if (i === 0) dot.classList.add("active");
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = Array.from(dotsContainer.querySelectorAll("div"));
+
+  function update() {
+    container.style.transform = `translateX(-${current * 100}%)`;
+    slides.forEach((s, i) => s.classList.toggle("active", i === current));
+    dots.forEach((d, i) => d.classList.toggle("active", i === current));
+    currentEl.textContent = String(current + 1).padStart(2, "0");
+  }
+
+  function next() {
+    current = (current + 1) % total;
+    update();
+  }
+
+  function prev() {
+    current = (current - 1 + total) % total;
+    update();
+  }
+
+  nextBtn.addEventListener("click", next);
+  prevBtn.addEventListener("click", prev);
+
+  dots.forEach(dot => {
+    dot.addEventListener("click", () => {
+      const idx = Number(dot.dataset.index || 0);
+      current = idx;
+      update();
+    });
+  });
+
+  // swipe em mobile
+  let startX = null;
+
+  container.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+
+  container.addEventListener("touchend", e => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) next();
+      else prev();
+    }
+    startX = null;
+  }, { passive: true });
+
+  update();
+});
