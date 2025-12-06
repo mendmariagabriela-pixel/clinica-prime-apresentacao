@@ -270,12 +270,14 @@
    ============================ */
 
 @media (max-width: 768px) {
+  /* tira fundo preto e sombra */
   .carousel-shell {
     background: transparent;
     box-shadow: none;
     margin-top: 12px;
   }
 
+  /* some header e texto, deixa só a arte */
   .carousel-header,
   .carousel-text {
     display: none;
@@ -297,6 +299,7 @@
     border-radius: 24px;
   }
 
+  /* setas por cima da imagem */
   .carousel-arrow {
     display: flex;
     top: 50%;
@@ -313,6 +316,7 @@
     right: 8px;
   }
 
+  /* bolinhas centralizadas */
   .carousel-dots {
     position: relative;
     bottom: auto;
@@ -365,6 +369,8 @@
   box-shadow: 0 26px 60px rgba(0,0,0,0.35);
 }
 
+/* setas dos stories */
+
 .stories-arrow {
   position: absolute;
   top: 50%;
@@ -392,6 +398,8 @@
   right: 8px;
 }
 
+/* dots dos stories */
+
 .stories-dots {
   display: flex;
   justify-content: center;
@@ -412,6 +420,8 @@
   width: 20px;
   background: #d8a86a;
 }
+
+/* stories – mobile */
 
 @media (max-width: 768px) {
   .stories-carousel {
