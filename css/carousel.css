@@ -345,10 +345,10 @@
 
 .stories-carousel {
   width: 100%;
-  max-width: 430px;          /* igual um post de feed */
-  margin: 16px auto 0;       /* centralizado */
+  max-width: 430px;          /* largura tipo post */
+  margin: 16px auto 0;
   position: relative;
-  overflow: hidden;          /* esconde qualquer sobra do track */
+  overflow: hidden;
 }
 
 .stories-track {
@@ -435,7 +435,7 @@
     border-radius: 24px;
   }
 
-  /* some as setas no mobile para não ficarem lá embaixo */
+  /* se quiser, pode esconder setas no mobile */
   .stories-arrow {
     display: none;
   }

@@ -1,27 +1,35 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("siteModal");
-  const closeBtn = document.getElementById("siteModalClose");
-  const triggers = document.querySelectorAll(".bio-link-site");
+document.addEventListener('DOMContentLoaded', function () {
+  const modalBackdrop = document.getElementById('siteModal');
+  const closeBtn = document.getElementById('siteModalClose');
+  const openButtons = document.querySelectorAll('.bio-link-site');
+
+  if (!modalBackdrop) return;
 
   function openModal() {
-    modal.classList.add("open");
+    modalBackdrop.classList.add('is-open');
   }
 
   function closeModal() {
-    modal.classList.remove("open");
+    modalBackdrop.classList.remove('is-open');
   }
 
-  triggers.forEach(btn => {
-    btn.addEventListener("click", openModal);
+  openButtons.forEach((btn) => {
+    btn.addEventListener('click', openModal);
   });
 
-  closeBtn.addEventListener("click", closeModal);
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
 
-  modal.addEventListener("click", e => {
-    if (e.target === modal) closeModal();
+  modalBackdrop.addEventListener('click', (e) => {
+    if (e.target === modalBackdrop) {
+      closeModal();
+    }
   });
 
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeModal();
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
   });
 });

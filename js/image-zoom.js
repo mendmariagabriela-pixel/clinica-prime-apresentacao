@@ -1,38 +1,41 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const zoomables = document.querySelectorAll("img.zoomable");
-  const backdrop = document.getElementById("imgLightbox");
-  const imgEl = document.getElementById("imgLightboxImage");
-  const closeBtn = document.getElementById("imgLightboxClose");
+document.addEventListener('DOMContentLoaded', function () {
+  const lightbox = document.getElementById('imgLightbox');
+  const lightboxImg = document.getElementById('imgLightboxImage');
+  const closeBtn = document.getElementById('imgLightboxClose');
 
-  if (!backdrop || !imgEl) return;
+  if (!lightbox || !lightboxImg) return;
 
   function openLightbox(src, alt) {
-    imgEl.src = src;
-    imgEl.alt = alt || "Imagem ampliada";
-    backdrop.classList.add("open");
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('is-open');
   }
 
   function closeLightbox() {
-    backdrop.classList.remove("open");
-    imgEl.src = "";
+    lightbox.classList.remove('is-open');
+    lightboxImg.src = '';
   }
 
-  zoomables.forEach(img => {
-    img.addEventListener("click", () => {
+  // todas as imagens clicáveis
+  document.querySelectorAll('img.zoomable').forEach((img) => {
+    img.addEventListener('click', () => {
       openLightbox(img.src, img.alt);
     });
   });
 
-  closeBtn.addEventListener("click", closeLightbox);
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeLightbox);
+  }
 
-  backdrop.addEventListener("click", (e) => {
-    if (e.target === backdrop) {
+  lightbox.addEventListener('click', (e) => {
+    // fecha só se clicar fora da imagem
+    if (e.target === lightbox) {
       closeLightbox();
     }
   });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
       closeLightbox();
     }
   });
