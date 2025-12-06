@@ -219,7 +219,7 @@
 }
 
 /* ============================
-   RESPONSIVO – CARROSSEL
+   RESPONSIVO – GERAL (TABLET)
    ============================ */
 
 @media (max-width: 900px) {
@@ -239,12 +239,11 @@
   .carousel-media {
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 10;
   }
 
   .carousel-media img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
   }
 
@@ -258,14 +257,85 @@
     right: 16px;
   }
 
-  .carousel-arrow {
-    display: none;
-  }
-
   .carousel-dots {
     bottom: 14px;
     left: 50%;
     right: auto;
     transform: translateX(-50%);
+  }
+}
+
+/* ============================
+   MOBILE – SÓ A ARTE, SETAS E DOTS
+   ============================ */
+
+@media (max-width: 768px) {
+  /* tira fundo preto grandão e sombra */
+  .carousel-shell {
+    background: transparent;
+    box-shadow: none;
+    margin-top: 12px;
+  }
+
+  /* some header e bloco de texto */
+  .carousel-header,
+  .carousel-text {
+    display: none;
+  }
+
+  /* slide vira só a imagem */
+  .carousel-slide {
+    flex-direction: column;
+  }
+
+  .carousel-media {
+    width: 100%;
+    height: auto;
+  }
+
+  .carousel-media img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+
+  /* setas aparecem de novo, por cima da imagem */
+  .carousel-arrow {
+    display: flex;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-arrow.prev {
+    left: 8px;
+  }
+
+  .carousel-arrow.next {
+    right: 8px;
+  }
+
+  /* bolinhas embaixo, centralizadas e sem blur */
+  .carousel-dots {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    margin-top: 8px;
+    justify-content: center;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+  }
+
+  .carousel-dots div {
+    background: rgba(0,0,0,0.25);
+  }
+
+  .carousel-dots .active {
+    background: #d8a86a;
   }
 }
