@@ -270,14 +270,12 @@
    ============================ */
 
 @media (max-width: 768px) {
-  /* tira fundo preto e sombra */
   .carousel-shell {
     background: transparent;
     box-shadow: none;
     margin-top: 12px;
   }
 
-  /* some header e texto, deixa só a arte */
   .carousel-header,
   .carousel-text {
     display: none;
@@ -299,7 +297,6 @@
     border-radius: 24px;
   }
 
-  /* setas por cima da imagem */
   .carousel-arrow {
     display: flex;
     top: 50%;
@@ -316,7 +313,6 @@
     right: 8px;
   }
 
-  /* bolinhas centralizadas */
   .carousel-dots {
     position: relative;
     bottom: auto;
@@ -345,7 +341,7 @@
 
 .stories-carousel {
   width: 100%;
-  max-width: 430px;          /* largura tipo post */
+  max-width: 430px;      /* tamanho de post/feed */
   margin: 16px auto 0;
   position: relative;
   overflow: hidden;
@@ -371,7 +367,7 @@
   object-fit: cover;
 }
 
-/* setas dos stories – desktop */
+/* setas dos stories */
 
 .stories-arrow {
   position: absolute;
@@ -431,12 +427,8 @@
   }
 
   .story-slide img {
-    max-width: 100%;
     border-radius: 24px;
   }
 
-  /* se quiser, pode esconder setas no mobile */
-  .stories-arrow {
-    display: none;
-  }
+  /* mantém as setas também no mobile para ficar igual ao topo */
 }

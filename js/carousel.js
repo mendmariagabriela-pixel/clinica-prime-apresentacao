@@ -1,156 +1,111 @@
-document.addEventListener('DOMContentLoaded', function () {
-  /* =====================================
-     CARROSSEL PRINCIPAL
-  ===================================== */
+// js/carousel.js
+// Controle do carrossel principal + carrossel de stories
 
-  const slidesContainer = document.getElementById('carouselSlides');
-  const slides = slidesContainer ? slidesContainer.querySelectorAll('.carousel-slide') : [];
-  const prevBtn = document.getElementById('carouselPrev');
-  const nextBtn = document.getElementById('carouselNext');
-  const dotsContainer = document.getElementById('carouselDots');
-  const currentSpan = document.getElementById('carouselCurrent');
-  const totalSpan = document.getElementById('carouselTotal');
+document.addEventListener("DOMContentLoaded", () => {
+  // ==========================
+  // CARROSSEL PRINCIPAL
+  // ==========================
+  const slidesContainer = document.getElementById("carouselSlides");
+  const slides = slidesContainer ? Array.from(slidesContainer.querySelectorAll(".carousel-slide")) : [];
+  const btnPrev = document.getElementById("carouselPrev");
+  const btnNext = document.getElementById("carouselNext");
+  const dotsContainer = document.getElementById("carouselDots");
+  const currentSpan = document.getElementById("carouselCurrent");
+  const totalSpan = document.getElementById("carouselTotal");
 
   let currentIndex = 0;
 
-  if (slides.length) {
-    if (totalSpan) totalSpan.textContent = String(slides.length).padStart(2, '0');
-
-    // cria dots
-    const dots = [];
-    slides.forEach((_, idx) => {
-      const dot = document.createElement('div');
-      if (idx === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => goToSlide(idx));
+  function updateMainDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = "";
+    slides.forEach((_, index) => {
+      const dot = document.createElement("div");
+      if (index === currentIndex) dot.classList.add("active");
+      dot.addEventListener("click", () => goToSlide(index));
       dotsContainer.appendChild(dot);
-      dots.push(dot);
     });
-
-    function updateUI() {
-      const offset = -currentIndex * 100;
-      slidesContainer.style.transform = `translateX(${offset}%)`;
-
-      slides.forEach((s, idx) => {
-        s.classList.toggle('active', idx === currentIndex);
-      });
-
-      dots.forEach((d, idx) => {
-        d.classList.toggle('active', idx === currentIndex);
-      });
-
-      if (currentSpan) {
-        currentSpan.textContent = String(currentIndex + 1).padStart(2, '0');
-      }
-    }
-
-    function goToSlide(index) {
-      if (index < 0) index = slides.length - 1;
-      if (index >= slides.length) index = 0;
-      currentIndex = index;
-      updateUI();
-    }
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
-    }
-
-    // swipe em mobile (opcional)
-    let startX = null;
-
-    slidesContainer.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-    });
-
-    slidesContainer.addEventListener('touchend', (e) => {
-      if (startX === null) return;
-      const endX = e.changedTouches[0].clientX;
-      const diff = endX - startX;
-      if (Math.abs(diff) > 50) {
-        if (diff < 0) {
-          goToSlide(currentIndex + 1);
-        } else {
-          goToSlide(currentIndex - 1);
-        }
-      }
-      startX = null;
-    });
-
-    updateUI();
   }
 
-  /* =====================================
-     CARROSSEL DE STORIES
-  ===================================== */
+  function goToSlide(index) {
+    if (!slides.length) return;
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentIndex = index;
 
-  const storiesTrack = document.getElementById('storiesTrack');
-  const storySlides = storiesTrack ? storiesTrack.querySelectorAll('.story-slide') : [];
-  const storiesPrev = document.getElementById('storiesPrev');
-  const storiesNext = document.getElementById('storiesNext');
-  const storiesDotsContainer = document.getElementById('storiesDots');
+    const offset = -index * 100;
+    slidesContainer.style.transform = `translateX(${offset}%)`;
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === currentIndex);
+    });
+
+    if (currentSpan) {
+      const num = (currentIndex + 1).toString().padStart(2, "0");
+      currentSpan.textContent = num;
+    }
+    if (totalSpan) {
+      const totalNum = slides.length.toString().padStart(2, "0");
+      totalSpan.textContent = totalNum;
+    }
+
+    if (dotsContainer) {
+      [...dotsContainer.children].forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentIndex);
+      });
+    }
+  }
+
+  if (slides.length) {
+    updateMainDots();
+    goToSlide(0);
+
+    if (btnPrev) btnPrev.addEventListener("click", () => goToSlide(currentIndex - 1));
+    if (btnNext) btnNext.addEventListener("click", () => goToSlide(currentIndex + 1));
+  }
+
+  // ==========================
+  // CARROSSEL DE STORIES
+  // ==========================
+  const storiesTrack = document.getElementById("storiesTrack");
+  const storySlides = storiesTrack ? Array.from(storiesTrack.querySelectorAll(".story-slide")) : [];
+  const storiesPrev = document.getElementById("storiesPrev");
+  const storiesNext = document.getElementById("storiesNext");
+  const storiesDots = document.getElementById("storiesDots");
 
   let currentStory = 0;
 
-  if (storySlides.length) {
-    const storyDots = [];
-
-    // cria dots de stories
-    storySlides.forEach((_, idx) => {
-      const dot = document.createElement('span');
-      if (idx === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => goToStory(idx));
-      storiesDotsContainer.appendChild(dot);
-      storyDots.push(dot);
+  function updateStoriesDots() {
+    if (!storiesDots) return;
+    storiesDots.innerHTML = "";
+    storySlides.forEach((_, index) => {
+      const span = document.createElement("span");
+      if (index === currentStory) span.classList.add("active");
+      span.addEventListener("click", () => goToStory(index));
+      storiesDots.appendChild(span);
     });
+  }
 
-    function updateStoriesUI() {
-      const offset = -currentStory * 100;
-      storiesTrack.style.transform = `translateX(${offset}%)`;
+  function goToStory(index) {
+    if (!storySlides.length || !storiesTrack) return;
+    if (index < 0) index = storySlides.length - 1;
+    if (index >= storySlides.length) index = 0;
+    currentStory = index;
 
-      storyDots.forEach((d, idx) => {
-        d.classList.toggle('active', idx === currentStory);
+    const offset = -index * 100;
+    storiesTrack.style.transform = `translateX(${offset}%)`;
+
+    if (storiesDots) {
+      [...storiesDots.children].forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentStory);
       });
     }
+  }
 
-    function goToStory(index) {
-      if (index < 0) index = storySlides.length - 1;
-      if (index >= storySlides.length) index = 0;
-      currentStory = index;
-      updateStoriesUI();
-    }
+  if (storySlides.length) {
+    updateStoriesDots();
+    goToStory(0);
 
-    if (storiesPrev) {
-      storiesPrev.addEventListener('click', () => goToStory(currentStory - 1));
-    }
-
-    if (storiesNext) {
-      storiesNext.addEventListener('click', () => goToStory(currentStory + 1));
-    }
-
-    // swipe mobile
-    let startStoriesX = null;
-
-    storiesTrack.addEventListener('touchstart', (e) => {
-      startStoriesX = e.touches[0].clientX;
-    });
-
-    storiesTrack.addEventListener('touchend', (e) => {
-      if (startStoriesX === null) return;
-      const endX = e.changedTouches[0].clientX;
-      const diff = endX - startStoriesX;
-      if (Math.abs(diff) > 50) {
-        if (diff < 0) {
-          goToStory(currentStory + 1);
-        } else {
-          goToStory(currentStory - 1);
-        }
-      }
-      startStoriesX = null;
-    });
-
-    updateStoriesUI();
+    if (storiesPrev) storiesPrev.addEventListener("click", () => goToStory(currentStory - 1));
+    if (storiesNext) storiesNext.addEventListener("click", () => goToStory(currentStory + 1));
   }
 });
