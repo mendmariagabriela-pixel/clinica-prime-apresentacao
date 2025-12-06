@@ -14,11 +14,14 @@
   --shadow-card: 0 18px 40px rgba(0, 0, 0, 0.12);
 }
 
+/* RESET BÁSICO */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/* LAYOUT GERAL */
 
 body {
   font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -49,7 +52,7 @@ body {
   }
 }
 
-/* Header */
+/* HEADER */
 
 .header {
   display: flex;
@@ -119,7 +122,7 @@ body {
   background: var(--bg-card);
 }
 
-/* Sections */
+/* SEÇÕES */
 
 .section {
   margin-top: 32px;
@@ -167,7 +170,7 @@ body {
   color: var(--primary-dark);
 }
 
-/* Posts grid */
+/* GRID DE POSTS */
 
 .posts-grid {
   display: grid;
@@ -246,7 +249,7 @@ body {
   color: var(--primary-dark);
 }
 
-/* Bios */
+/* BIOS */
 
 .bios-grid {
   display: grid;
@@ -346,7 +349,7 @@ body {
   font-size: 0.72rem;
 }
 
-/* Modal site da bio */
+/* MODAL – SITE DA BIO */
 
 .site-modal-backdrop {
   position: fixed;
@@ -443,7 +446,7 @@ body {
   color: #fff;
 }
 
-/* Footer */
+/* FOOTER */
 
 .footer {
   margin-top: 32px;
@@ -463,7 +466,7 @@ body {
   color: var(--primary-dark);
 }
 
-/* Imagens com zoom */
+/* IMAGENS COM ZOOM */
 
 .zoomable {
   cursor: zoom-in;
@@ -475,7 +478,7 @@ body {
   box-shadow: 0 10px 24px rgba(0,0,0,0.25);
 }
 
-/* Lightbox de imagem */
+/* LIGHTBOX DE IMAGEM */
 
 .img-lightbox-backdrop {
   position: fixed;
@@ -522,3 +525,53 @@ body {
   cursor: pointer;
 }
 
+/* ============================
+   MOBILE – LAYOUT GERAL
+   ============================ */
+
+@media (max-width: 768px) {
+  body {
+    background: #f5eee7;
+    padding: 16px 0;
+  }
+
+  main,
+  .page-wrapper,
+  .section-wrapper {
+    padding-inline: 16px;
+  }
+
+  section {
+    padding-inline: 0;
+  }
+
+  .page {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .page-inner {
+    padding: 24px 16px 32px;
+  }
+
+  .section {
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  .section-block {
+    margin-block: 24px;
+  }
+
+  .bio-site-card {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+
+  .bio-site-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}

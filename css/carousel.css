@@ -1,5 +1,5 @@
 /* ============================
-   CARD / CARROSSEL
+   CARROSSEL – DESKTOP
    ============================ */
 
 .carousel-shell {
@@ -16,13 +16,12 @@
   box-shadow: 0 30px 80px rgba(0,0,0,0.35);
 }
 
-/* CABEÇALHO DO CARROSSEL
-   (agora limitado à lateral direita) */
+/* Cabeçalho do carrossel – lateral direita */
 
 .carousel-header {
   position: absolute;
   top: 16px;
-  left: 55%;           /* começa onde termina a foto */
+  left: 55%;
   right: 22px;
   z-index: 10;
   display: flex;
@@ -62,7 +61,7 @@
   pointer-events: auto;
 }
 
-/* SLIDES */
+/* Slides */
 
 .carousel-container {
   display: flex;
@@ -86,18 +85,17 @@
 .carousel-media img {
   width: 100%;
   height: 100%;
-  object-fit: contain;      /* mostra a imagem inteira, sem cortar */
-  background: #000;         /* borda preta de fundo se sobrar espaço */
-  transform: none;          /* remove zoom */
+  object-fit: contain;
+  background: #000;
+  transform: none;
   transition: opacity .4s ease-out;
 }
 
 .carousel-slide.active .carousel-media img {
-  transform: none;          /* garante nenhum zoom */
+  transform: none;
 }
 
-
-/* LATERAL DE TEXTO */
+/* Lateral de texto */
 
 .carousel-text {
   width: 45%;
@@ -163,7 +161,7 @@
   box-shadow: 0 18px 32px rgba(0,0,0,0.4);
 }
 
-/* SETAS – AGORA TAMBÉM FORA DA FOTO (lado direito) */
+/* Setas */
 
 .carousel-arrow {
   position: absolute;
@@ -184,23 +182,20 @@
   box-shadow: 0 18px 40px rgba(0,0,0,0.6);
 }
 
-/* prev encostado no início da área preta (texto) */
 .carousel-arrow.prev {
   left: calc(55% + 12px);
 }
 
-/* next continua no cantinho direito */
 .carousel-arrow.next {
   right: 18px;
 }
 
-/* DOTS – BASEADOS NO LADO DIREITO */
+/* Dots */
 
 .carousel-dots {
   position: absolute;
   bottom: 22px;
   right: 32px;
-  transform: none;
   display: flex;
   gap: 8px;
   z-index: 20;
@@ -223,11 +218,18 @@
   width: 22px;
 }
 
-/* RESPONSIVO */
+/* ============================
+   RESPONSIVO – CARROSSEL
+   ============================ */
 
 @media (max-width: 900px) {
   .carousel-shell {
-    height: 520px;
+    height: auto;
+    border-radius: 24px;
+  }
+
+  .carousel-container {
+    height: auto;
   }
 
   .carousel-slide {
@@ -236,16 +238,21 @@
 
   .carousel-media {
     width: 100%;
-    height: 55%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .carousel-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .carousel-text {
     width: 100%;
-    height: 45%;
-    padding: 24px 20px;
+    padding: 24px 18px 26px;
   }
 
-  /* header volta a ocupar a largura toda, mas ainda acima da parte preta */
   .carousel-header {
     left: 16px;
     right: 16px;
@@ -257,7 +264,8 @@
 
   .carousel-dots {
     bottom: 14px;
-    right: 50%;
-    transform: translateX(50%);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
   }
 }
